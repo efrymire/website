@@ -2,12 +2,15 @@
 const workItems = [
 	{ 
 		heading: '#metoo: Clusters of Tweets', 
-		details: 'For my final thesis, I scraped nearly 1.4 million tweets from the public twitter search page to analyze the language within. Using kmeans cluster analysis, I find themes in the tweets and seek to answer the question: "what are people really saying about #metoo?" This thesis took me all over the world — I spoke about it at Antenna during Dutch Design Week, the Design Indaba Conference in Cape Town, as a lightning talk at Eyeo Festival in Minneapolis, and as a d3.js meet up talk. The best video of this talk is to the right, and the files from the d3.js meet-up are located here.',
+		details: 'For my final thesis, I scraped nearly 1.4 million tweets from the public twitter search page to analyze the language within. Using kmeans cluster analysis, I find themes in the tweets and seek to answer the question: "what are people really saying about #metoo?" This thesis took me all over the world — I spoke about it at Antenna during Dutch Design Week, the Design Indaba Conference in Cape Town, as a lightning talk at Eyeo Festival in Minneapolis, and as a d3.js meet up talk.',
 		image: {
 			src: 'assets/metoo.png',
 			alt: 'image'
 		},
-		button: { text: 'explore clusters', url: 'https://efrymire.github.io/thesis/index.html'}
+		buttons: [
+			{ text: 'explore clusters', url: 'https://efrymire.github.io/thesis/index.html'},
+			{ text: 'watch the video', url: 'https://www.youtube.com/watch?v=0xd5JNASIE4&feature=youtu.be'}
+		]
 	},
 	{ 
 		heading: 'The 162 Sailing Stones of Death Valley', 
@@ -16,7 +19,7 @@ const workItems = [
 			src: 'assets/sailingstones.png',
 			alt: 'image'
 		},
-		button: { text: 'learn more', url: 'https://efrymire.github.io/portfolio/sailingstones.html'}
+		buttons: [{ text: 'learn more', url: 'https://efrymire.github.io/portfolio/sailingstones.html'}]
 	},
 	{ 
 		heading: 'Ice Cream Turf Wars', 
@@ -25,7 +28,7 @@ const workItems = [
 			src: 'assets/icecream.png',
 			alt: 'image'
 		},
-		button: { text: 'check it out', url: 'https://efrymire.github.io/portfolio/icecream.html'}
+		buttons: [{ text: 'check it out', url: 'https://efrymire.github.io/portfolio/icecream.html'}]
 	},
 	// { 
 	// 	heading: 'Scraping, Cleansing, and Mapping Data', 
@@ -34,7 +37,7 @@ const workItems = [
 	// 		src: 'assets/lowres_notebook.jpg',
 	// 		alt: 'image'
 	// 	},
-	// 	button: { text: null, url: ''}
+	// 	buttons: { text: null, url: ''}
 	// },
 	{ 
 		heading: 'Exploring Equality: Visualizing the relationship between gender inequality and income inequality', 
@@ -43,7 +46,7 @@ const workItems = [
 			src: 'assets/undp.png',
 			alt: 'image'
 		},
-		button: { text: 'play with it', url: ''}
+		buttons: [{ text: 'play with it', url: ''}]
 	},
 ]
 
@@ -63,13 +66,13 @@ function handleClick(url) {
 
 		{#each workItems as item}
 			<div class="{'work-item'}">
-				<img class="{'work-item-img'}" src={item.image.src} alt={item.image.alt}><img/>
+				<img class="{'work-item-img'}" src={item.image.src} alt={item.image.alt}/>
 				<div class="{'work-item-details'}">
 					<h3 class="heading">{item.heading}</h3>
 					<p class="details">{item.details}</p>
-					{#if item.button.text}
-						<span class="button" on:click={() => handleClick(item.button.url)}>{item.button.text}</span>
-					{/if}
+					{#each item.buttons as button}
+						<span class="button" on:click={() => handleClick(button.url)}>{button.text}</span>
+					{/each}
 				</div>
 			</div>
 		{/each}
@@ -126,6 +129,7 @@ function handleClick(url) {
 		color: white;
 		background-color: black;
 		cursor: pointer;
+		margin: 20px 10px 0px 0px;
 	}
 	
 	@media (min-width: 640px) {

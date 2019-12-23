@@ -558,29 +558,35 @@ var app = (function () {
 
     const file$2 = "src/pages/work.svelte";
 
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[5] = list[i];
+    	return child_ctx;
+    }
+
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[2] = list[i];
     	return child_ctx;
     }
 
-    // (70:5) {#if item.button.text}
-    function create_if_block(ctx) {
+    // (73:5) {#each item.buttons as button}
+    function create_each_block_1(ctx) {
     	let span;
-    	let t_value = /*item*/ ctx[2].button.text + "";
+    	let t_value = /*button*/ ctx[5].text + "";
     	let t;
     	let dispose;
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[1](/*item*/ ctx[2], ...args);
+    		return /*click_handler*/ ctx[1](/*button*/ ctx[5], ...args);
     	}
 
     	const block = {
     		c: function create() {
     			span = element("span");
     			t = text(t_value);
-    			attr_dev(span, "class", "button svelte-x65f7k");
-    			add_location(span, file$2, 70, 6, 4014);
+    			attr_dev(span, "class", "button svelte-9e8iq");
+    			add_location(span, file$2, 73, 6, 4037);
     			dispose = listen_dev(span, "click", click_handler, false, false, false);
     		},
     		m: function mount(target, anchor) {
@@ -598,23 +604,22 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block.name,
-    		type: "if",
-    		source: "(70:5) {#if item.button.text}",
+    		id: create_each_block_1.name,
+    		type: "each",
+    		source: "(73:5) {#each item.buttons as button}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (64:2) {#each workItems as item}
+    // (67:2) {#each workItems as item}
     function create_each_block(ctx) {
     	let div1;
-    	let img0;
-    	let img0_class_value;
-    	let img0_src_value;
-    	let img0_alt_value;
-    	let img1;
+    	let img;
+    	let img_class_value;
+    	let img_src_value;
+    	let img_alt_value;
     	let t0;
     	let div0;
     	let h3;
@@ -628,13 +633,17 @@ var app = (function () {
     	let div0_class_value;
     	let t5;
     	let div1_class_value;
-    	let if_block = /*item*/ ctx[2].button.text && create_if_block(ctx);
+    	let each_value_1 = /*item*/ ctx[2].buttons;
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    	}
 
     	const block = {
     		c: function create() {
     			div1 = element("div");
-    			img0 = element("img");
-    			img1 = element("img");
+    			img = element("img");
     			t0 = space();
     			div0 = element("div");
     			h3 = element("h3");
@@ -643,26 +652,28 @@ var app = (function () {
     			p = element("p");
     			t3 = text(t3_value);
     			t4 = space();
-    			if (if_block) if_block.c();
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
     			t5 = space();
-    			attr_dev(img0, "class", img0_class_value = "" + (null_to_empty("work-item-img") + " svelte-x65f7k"));
-    			if (img0.src !== (img0_src_value = /*item*/ ctx[2].image.src)) attr_dev(img0, "src", img0_src_value);
-    			attr_dev(img0, "alt", img0_alt_value = /*item*/ ctx[2].image.alt);
-    			add_location(img0, file$2, 65, 4, 3772);
-    			add_location(img1, file$2, 65, 77, 3845);
-    			attr_dev(h3, "class", "heading svelte-x65f7k");
-    			add_location(h3, file$2, 67, 5, 3897);
+    			attr_dev(img, "class", img_class_value = "" + (null_to_empty("work-item-img") + " svelte-9e8iq"));
+    			if (img.src !== (img_src_value = /*item*/ ctx[2].image.src)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*item*/ ctx[2].image.alt);
+    			add_location(img, file$2, 68, 4, 3792);
+    			attr_dev(h3, "class", "heading svelte-9e8iq");
+    			add_location(h3, file$2, 70, 5, 3912);
     			attr_dev(p, "class", "details");
-    			add_location(p, file$2, 68, 5, 3942);
-    			attr_dev(div0, "class", div0_class_value = "" + (null_to_empty("work-item-details") + " svelte-x65f7k"));
-    			add_location(div0, file$2, 66, 4, 3856);
-    			attr_dev(div1, "class", div1_class_value = "" + (null_to_empty("work-item") + " svelte-x65f7k"));
-    			add_location(div1, file$2, 64, 3, 3740);
+    			add_location(p, file$2, 71, 5, 3957);
+    			attr_dev(div0, "class", div0_class_value = "" + (null_to_empty("work-item-details") + " svelte-9e8iq"));
+    			add_location(div0, file$2, 69, 4, 3871);
+    			attr_dev(div1, "class", div1_class_value = "" + (null_to_empty("work-item") + " svelte-9e8iq"));
+    			add_location(div1, file$2, 67, 3, 3760);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
-    			append_dev(div1, img0);
-    			append_dev(div1, img1);
+    			append_dev(div1, img);
     			append_dev(div1, t0);
     			append_dev(div1, div0);
     			append_dev(div0, h3);
@@ -671,15 +682,40 @@ var app = (function () {
     			append_dev(div0, p);
     			append_dev(p, t3);
     			append_dev(div0, t4);
-    			if (if_block) if_block.m(div0, null);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div0, null);
+    			}
+
     			append_dev(div1, t5);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*item*/ ctx[2].button.text) if_block.p(ctx, dirty);
+    			if (dirty & /*handleClick, workItems*/ 1) {
+    				each_value_1 = /*item*/ ctx[2].buttons;
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div0, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value_1.length;
+    			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div1);
-    			if (if_block) if_block.d();
+    			destroy_each(each_blocks, detaching);
     		}
     	};
 
@@ -687,7 +723,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(64:2) {#each workItems as item}",
+    		source: "(67:2) {#each workItems as item}",
     		ctx
     	});
 
@@ -734,20 +770,20 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(h1, file$2, 59, 3, 3364);
+    			add_location(h1, file$2, 62, 3, 3384);
     			attr_dev(a0, "href", "http://two-n.com/");
     			attr_dev(a0, "target", "_blank");
-    			add_location(a0, file$2, 60, 129, 3507);
+    			add_location(a0, file$2, 63, 129, 3527);
     			attr_dev(a1, "href", "http://two-n.com/projects");
     			attr_dev(a1, "target", "_blank");
-    			add_location(a1, file$2, 60, 245, 3623);
-    			add_location(p, file$2, 60, 3, 3381);
-    			attr_dev(div0, "class", "intro svelte-x65f7k");
-    			add_location(div0, file$2, 58, 2, 3341);
+    			add_location(a1, file$2, 63, 245, 3643);
+    			add_location(p, file$2, 63, 3, 3401);
+    			attr_dev(div0, "class", "intro svelte-9e8iq");
+    			add_location(div0, file$2, 61, 2, 3361);
     			attr_dev(div1, "class", "Work");
-    			add_location(div1, file$2, 56, 1, 3319);
-    			attr_dev(main, "class", "svelte-x65f7k");
-    			add_location(main, file$2, 55, 0, 3311);
+    			add_location(div1, file$2, 59, 1, 3339);
+    			attr_dev(main, "class", "svelte-9e8iq");
+    			add_location(main, file$2, 58, 0, 3331);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -820,12 +856,18 @@ var app = (function () {
     	const workItems = [
     		{
     			heading: "#metoo: Clusters of Tweets",
-    			details: "For my final thesis, I scraped nearly 1.4 million tweets from the public twitter search page to analyze the language within. Using kmeans cluster analysis, I find themes in the tweets and seek to answer the question: \"what are people really saying about #metoo?\" This thesis took me all over the world — I spoke about it at Antenna during Dutch Design Week, the Design Indaba Conference in Cape Town, as a lightning talk at Eyeo Festival in Minneapolis, and as a d3.js meet up talk. The best video of this talk is to the right, and the files from the d3.js meet-up are located here.",
+    			details: "For my final thesis, I scraped nearly 1.4 million tweets from the public twitter search page to analyze the language within. Using kmeans cluster analysis, I find themes in the tweets and seek to answer the question: \"what are people really saying about #metoo?\" This thesis took me all over the world — I spoke about it at Antenna during Dutch Design Week, the Design Indaba Conference in Cape Town, as a lightning talk at Eyeo Festival in Minneapolis, and as a d3.js meet up talk.",
     			image: { src: "assets/metoo.png", alt: "image" },
-    			button: {
-    				text: "explore clusters",
-    				url: "https://efrymire.github.io/thesis/index.html"
-    			}
+    			buttons: [
+    				{
+    					text: "explore clusters",
+    					url: "https://efrymire.github.io/thesis/index.html"
+    				},
+    				{
+    					text: "watch the video",
+    					url: "https://www.youtube.com/watch?v=0xd5JNASIE4&feature=youtu.be"
+    				}
+    			]
     		},
     		{
     			heading: "The 162 Sailing Stones of Death Valley",
@@ -834,29 +876,33 @@ var app = (function () {
     				src: "assets/sailingstones.png",
     				alt: "image"
     			},
-    			button: {
-    				text: "learn more",
-    				url: "https://efrymire.github.io/portfolio/sailingstones.html"
-    			}
+    			buttons: [
+    				{
+    					text: "learn more",
+    					url: "https://efrymire.github.io/portfolio/sailingstones.html"
+    				}
+    			]
     		},
     		{
     			heading: "Ice Cream Turf Wars",
     			details: "The infamous \"ice cream turf wars\" between Mister Softee and New York Ice Cream Company have played out over almost a decade in this big city playground. This 40x40 poster details this story through excerpts from news sources throughout the years, and as each company developed their own identity.",
     			image: { src: "assets/icecream.png", alt: "image" },
-    			button: {
-    				text: "check it out",
-    				url: "https://efrymire.github.io/portfolio/icecream.html"
-    			}
+    			buttons: [
+    				{
+    					text: "check it out",
+    					url: "https://efrymire.github.io/portfolio/icecream.html"
+    				}
+    			]
     		},
     		{
     			heading: "Exploring Equality: Visualizing the relationship between gender inequality and income inequality",
     			details: "This visualization was designed to illustrate clear relationships between gender and income inequality, while simultaneously educating the user on the process of calculating male and female indexes in relation to income inequality. By understanding the impact of gender equality on income equality, and the striking difference in male and female indexes based on country, we can work to raise female indexes, thus lowering gender and income inequality.",
     			image: { src: "assets/undp.png", alt: "image" },
-    			button: { text: "play with it", url: "" }
+    			buttons: [{ text: "play with it", url: "" }]
     		}
     	];
 
-    	const click_handler = item => handleClick(item.button.url);
+    	const click_handler = button => handleClick(button.url);
 
     	$$self.$capture_state = () => {
     		return {};
